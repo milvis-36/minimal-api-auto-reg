@@ -13,7 +13,10 @@ internal class EndpointFinder : ISyntaxReceiver
 	public void OnVisitSyntaxNode0(SyntaxNode syntaxNode)
 	{
 		var r = _finder.Resolve(syntaxNode);
-
+		if (r is not null)
+		{
+			Result.EndpointDefinitions.Add(r);
+		}
 	}
 
 	public void OnVisitSyntaxNode(SyntaxNode syntaxNode)

@@ -36,7 +36,7 @@ internal class ConventionalEndpointDefFinder : ClassDefinitionSyntaxFinderBase
 
 	private static string ConvertToPattern(string s, string suffix)
 	{
-		var end = s.Length - suffix.Length; // pak to bude end - endpoint.leght
+		var end = s.Length - suffix.Length;
 		var sb = new StringBuilder(end + 5);
 		for (int i = 0; i < end; i++)
 		{
