@@ -10,7 +10,10 @@
     <Company>Milvis</Company>
     <Description>Source code generator for an endpoint auto registration.</Description>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>Initial</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <Authors>mil.vis36@gmail.com</Authors>
+    <PackageProjectUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/Readme.md</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

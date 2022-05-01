@@ -1,9 +1,10 @@
 ﻿# Minimal API Endpoint AutoRegistration 
-**via Source code generators** to speedup development process. Without expensive Reflection scan at the application startup.
+**via Source code generators** to speedup development process. Without an expensive Reflection scan at the application startup.
 
 ## Usage
 
-1. Reference this assembly
+1. Add this nuget package
+1. Rebuild solution to start the code generator.
 1. Enable auto registration inside Program.cs
 
 `var registrations = app.UseEndpointAutoRegister();`
@@ -63,6 +64,8 @@ An endpoint is a class declaring:
 A classname without endpoint suffix.
 > DetailGetEndpoint => Detail
 
+Applies to all endpoint types.
+
 #### Route pattern
 Ordered resolution:
 1. `Pattern` property if not null
@@ -72,11 +75,15 @@ Ordered resolution:
    1. Appended `Handler`'s arguments with applied `FromRouteAttribute` in same order
    1. If the first argument of `Handler` method is of primitive type (or string) then is used it as default
 
+Applies to the Handler-based endpoints.
+
 #### Additional route configuration
 If you want to configure a created `RouteHandlerBuilder` then declare `Configure` method.
 
 You can use it to define an Action name or a 'Produces' info.
 > void Configure(RouteHandlerBuilder eb) => eb.WithName("Action1")
+
+Applies to the Handler-based endpoints.
 
 ## Examples
 ### Endpoint

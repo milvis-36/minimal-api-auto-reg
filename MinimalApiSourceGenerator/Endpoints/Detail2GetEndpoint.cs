@@ -12,6 +12,7 @@ namespace MinimalApiSourceGenerator.Endpoints
 
 
 		//public string Pattern => "/detail/{id}";
+
 		public string Handler(int id)
 		{
 			return $"id: {id}";
