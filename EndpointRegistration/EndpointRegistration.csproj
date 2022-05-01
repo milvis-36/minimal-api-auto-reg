@@ -14,7 +14,7 @@
     <Authors>mil.vis36@gmail.com</Authors>
     <PackageProjectUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/Readme.md</PackageProjectUrl>
     <RepositoryUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/</RepositoryUrl>
-    <PackageLicenseFile>C:\Users\milvi\source\repos\MinimalApiSourceGenerator\EndpointRegistration\Licence.txt</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
