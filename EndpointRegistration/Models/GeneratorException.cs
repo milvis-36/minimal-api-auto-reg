@@ -4,6 +4,8 @@ namespace EndpointRegistration.Models;
 
 public class GeneratorException : Exception
 {
+	public string? ClassName { get; set; }
+
 	public GeneratorException()
 	{
 	}

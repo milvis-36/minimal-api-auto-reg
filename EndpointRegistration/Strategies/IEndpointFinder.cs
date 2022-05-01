@@ -1,6 +1,5 @@
-﻿using EndpointRegistration.Models;
+﻿namespace EndpointRegistration.Strategies;
 
-namespace EndpointRegistration.Strategies;
 internal interface IEndpointFinder
 {
 	IEndpointFinder? Next { get; }

@@ -1,9 +1,15 @@
 ﻿using EndpointRegistration;
 
 namespace MinimalApiSourceGenerator.Endpoints.Products;
-	public class ListApiEndpoint : IApiEndpoint
+public class ListApiEndpoint : IApiEndpoint
+{
+	public void Configure(RouteHandlerBuilder eb)
 	{
-		public string Pattern => "/home/index";
-		public Delegate Handler { get; } = (HttpContext c) => { return $"ahoj from {nameof(ListApiEndpoint)}: {c.Request.Path}"; };
+		eb.Produces(200);
+
+	}
+
+	public string Pattern => "/home/index";
+	public Delegate Handler { get; } = (HttpContext c) => { return $"ahoj from {nameof(ListApiEndpoint)}: {c.Request.Path}"; };
 }
 

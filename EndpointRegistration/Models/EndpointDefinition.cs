@@ -2,18 +2,45 @@
 
 public record EndpointDefinition
 {
-	public string ClassName { get; set; }
-	public string Namespace { get; set; }
+	public string Namespace { get; set; } = nameof(Namespace);
 
-	public string Pattern { get; set; }
+	public string Classname { get; set; } = nameof(Classname);
 
-	public string HttpMethod { get; set; }
+	public bool IsStatic { get; set; } = false;
 
-	public void Deconstruct(out string className, out string nameSpace, out string pattern, out string httpMethod)
+	public string EndpointName { get; set; } = nameof(EndpointName);
+
+	public string Pattern { get; set; } = nameof(Pattern);
+
+	public string HttpMethod { get; set; } = nameof(HttpMethod);
+
+	public bool HasConfigureMethod { get; set; } = false;
+
+	public bool IsAutoRegister { get; set; } = false;
+
+	public void Deconstruct(out string ns, out string classname)
 	{
-		className = ClassName;
-		nameSpace = Namespace;
+		ns = Namespace;
+		classname = Classname;
+	}
+
+	public void Deconstruct(out string ns, out string classname, out bool isStatic, out string endpointName)
+	{
+		ns = Namespace;
+		classname = Classname;
+		isStatic = IsStatic;
+		endpointName = EndpointName;
+	}
+
+	public void Deconstruct(out string ns, out string classname, out bool isStatic, out string endpointName, out string pattern, out string httpMethod, out bool hasConfigureMethod, out bool isAutoRegister)
+	{
+		ns = Namespace;
+		classname = Classname;
+		isStatic = IsStatic;
+		endpointName = EndpointName;
 		pattern = Pattern;
 		httpMethod = HttpMethod;
+		hasConfigureMethod = HasConfigureMethod;
+		isAutoRegister = IsAutoRegister;
 	}
 }

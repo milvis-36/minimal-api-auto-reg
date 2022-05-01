@@ -1,3 +1,5 @@
+using Generated;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,52 +16,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-Generated.Endpoints.AutoRegister(app);
-
-
-//new Registration().Register(app);
-
-var summaries = new[]
-{
-		"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-//app.MapGet("/home/index2", () => "Ahoj");
-//app.MapGet("/home/index3", (context) => context.Response.WriteAsync("test"));
-//app.MapGet("/home/index4/{id}", (id) => "aaa");
-//app.MapGet("/todoitems/{id}", async (int id) => await Task.FromResult($"id: {id}"));
-
-app.MapGet("/weatherforecast", () =>
-{
-	var forecast = Enumerable.Range(1, 5).Select(index =>
-		 new WeatherForecast
-		 (
-				 DateTime.Now.AddDays(index),
-				 Random.Shared.Next(-20, 55),
-				 summaries[Random.Shared.Next(summaries.Length)]
-		 ))
-			.ToArray();
-	return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.MapGet("/weatherforecast2", () =>
-{
-	var forecast = Enumerable.Range(1, 5).Select(index =>
-			new WeatherForecast
-			(
-				DateTime.Now.AddDays(index),
-				Random.Shared.Next(-20, 55),
-				summaries[Random.Shared.Next(summaries.Length)]
-			))
-		.ToArray();
-	return forecast;
-});
+var registrations = app.UseEndpointAutoRegister();
+app.MapGet("/home/index2", new MinimalApiSourceGenerator.Endpoints.Detail2GetEndpoint().Handler);
 
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-	public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

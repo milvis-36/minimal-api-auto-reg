@@ -1,76 +1,34 @@
-﻿using System.Diagnostics;
-using EndpointRegistration.Models;
-using EndpointRegistration.Strategies;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using EndpointRegistration.Strategies;
+using EndpointRegistration.Strategies.AutoRegistering;
+using EndpointRegistration.Strategies.Common;
+using EndpointRegistration.Strategies.Conventional;
+using EndpointRegistration.Strategies.InterfaceBased;
 
 namespace EndpointRegistration;
+
 internal class EndpointFinder : ISyntaxReceiver
 {
-	private readonly IEndpointFinder _finder = new InterfaceEndpointDefFinder(new ConventionalEndpointDefFinder());
+	private readonly IEndpointFinder _finder =
+		new IgnoreEndpointFinder(
+		new AutoRegisterFinder(
+			new InterfaceEndpointFinder(
+				new ConventionalEndpointFinder())));
 
 	public EndpointFinderResult Result { get; } = new();
 
-	public void OnVisitSyntaxNode0(SyntaxNode syntaxNode)
-	{
-		var r = _finder.Resolve(syntaxNode);
-		if (r is not null)
-		{
-			Result.EndpointDefinitions.Add(r);
-		}
-	}
-
 	public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
 	{
-		//if (!Debugger.IsAttached) Debugger.Launch();
-
 		try
 		{
-			OnVisitSyntaxNode0(syntaxNode);
+			var endpointDefinition = _finder.Resolve(syntaxNode);
+			if (endpointDefinition is not null)
+			{
+				Result.EndpointDefinitions.Add(endpointDefinition);
+			}
 		}
 		catch (GeneratorException e)
 		{
-			// TODO: result errors
-			Console.WriteLine(e);
-			throw;
+			Result.GeneratorExceptions.Add(e);
 		}
-		
-
-
-		ProcessIfImplements(syntaxNode, cls =>
-		{
-			var pathProperty = cls.GetPropertyByIdentifier(nameof(IApiEndpoint.Pattern));
-
-			Result.EndpointDefinitions.Add(new EndpointDefinition
-			{
-				Pattern = Utils.IsConventionRegistration(syntaxNode) ? Utils.ResolvePattern(cls) : pathProperty?.ExpressionBody?.Expression.ToString(),
-				ClassName = cls.Identifier.ToString(),
-				Namespace = (cls.Parent as BaseNamespaceDeclarationSyntax)?.Name.ToString(),
-				HttpMethod = Utils.ResolveHttpMethod(cls),
-			});
-		},
-			nameof(IApiEndpoint),
-			nameof(IApiGetEndpoint),
-			nameof(IApiPutEndpoint),
-			nameof(IApiPostEndpoint),
-			nameof(IApiDeleteEndpoint));
-
-		if (Utils.IsConventionRegistration(syntaxNode))
-		{
-			Console.WriteLine();
-		}
-
-	}
-
-	private static void ProcessIfImplements(SyntaxNode syntaxNode,
-		Action<ClassDeclarationSyntax> action, params string[] interfaceName)
-	{
-		//&& syntaxNode is ClassDeclarationSyntax cls && cls.Identifier.ToString().
-		if (interfaceName?.Any(syntaxNode.IsClassImplementingInterface) != true
-				&& !Utils.IsConventionRegistration(syntaxNode))
-		{
-			return;
-		}
-
-		action(syntaxNode as ClassDeclarationSyntax);
 	}
 }
