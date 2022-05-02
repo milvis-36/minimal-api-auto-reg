@@ -10,12 +10,12 @@
     <Company>Milvis</Company>
     <Description>Source code generator for an endpoint auto registration.</Description>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed usage of fullname of IgnoreEndpoint Attribute; Code analysis asseblies - <PrivateAssets>all</PrivateAssets></PackageReleaseNotes>
     <Authors>mil.vis36@gmail.com</Authors>
     <PackageProjectUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/Readme.md</PackageProjectUrl>
     <RepositoryUrl>https://github.com/milvis-36/minimal-api-auto-reg/blob/master/EndpointRegistration/</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageTags>minimal-api;source code generator;dotnet</PackageTags>
   </PropertyGroup>
 
@@ -24,8 +24,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference> 
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

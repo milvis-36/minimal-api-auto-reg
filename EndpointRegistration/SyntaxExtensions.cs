@@ -25,7 +25,8 @@ internal static class SyntaxExtensions
 		=> al.SelectMany(x => x.Attributes)
 			.LastOrDefault(x =>
 				x.IsKind(SyntaxKind.Attribute) &&
-				attributeName.Equals(x.Name.ToString(), StringComparison.InvariantCultureIgnoreCase));
+				(attributeName.Equals(x.Name.ToString(), StringComparison.InvariantCultureIgnoreCase)
+				|| x.Name.ToString().EndsWith(attributeName, StringComparison.InvariantCultureIgnoreCase) == true));
 
 	public static string? TryGetAttributeValue(this AttributeSyntax? a, int index)
 		=> a?.ArgumentList?.Arguments[index].ToString();
